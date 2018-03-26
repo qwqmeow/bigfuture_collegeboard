@@ -9,7 +9,6 @@ def _decode_utf8(str):
 
 
 def write_data(title,intro,helpful_courses,related_majors):
-    '''write_data(dict_jav, uncensored)'''
 
     conn = pymysql.connect(host='127.0.0.1',port=3306,user='root',passwd='pass',db='edu',charset='utf8')
     cursor = conn.cursor()
