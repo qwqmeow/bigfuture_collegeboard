@@ -23,7 +23,7 @@ def main(entrance):
     print "entrance:{}".format(entrance)
 
     entrance_html = downloader.get_html_from_phantomjs(entrance)
-    major_url_list = pageparser.get_specialty(entrance_html)
+    major_url_list = pageparser.get_major_categories(entrance_html)
     i=0
 
     for major_url in major_url_list:#1182
