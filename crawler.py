@@ -33,8 +33,8 @@ def main(entrance):
 
 
 
-       # controler.write_data(title,intro,helpful_courses,related_majors)
-        print 'title:{},code:{},helpful_courses:{},related_majors:{}'.format(title,intro,helpful_courses,related_majors)
+       controler.write_data(title,intro,helpful_courses,related_majors)
+        # print 'title:{},code:{},helpful_courses:{},related_majors:{}'.format(title,intro,helpful_courses,related_majors)
         i=i+1
 
 
