@@ -18,7 +18,7 @@ def write_data(title,intro,helpful_courses,related_majors):
     #插入数据
     try:
 
-        cursor.execute('INSERT INTO edu_spider_en (title,intro,helpful_courses,related_majors)VALUES("{}","{}","{}","{}")'.format(title,intro,helpful_courses,related_majors))
+        cursor.execute('INSERT INTO edu_spider_en (title,intro,helpful,related)VALUES("{}","{}","{}","{}")'.format(title,intro,helpful_courses,related_majors))
     except Exception as e:
         print e
         pass
