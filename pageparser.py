@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import requests
 import sys
 import json
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -84,19 +85,28 @@ def parse_major(html):
     soup = BeautifulSoup(html, "html.parser")
     title = soup.select('h1[id="majorCareerProfile_titleHeading"]')[0].text
     intro = soup.select('div[class="grid_9 alpha margin60 marginBottomOnly"]')[0].text
-    helpful_courses_li = soup.select('div[id="majorCareerProfile_highSchoolCourseList"]')[0].select('li')
 
-    for x in helpful_courses_li:
-        helpful_courses_list.append(x.text)
 
-    helpful_courses = ','.join([x for x in helpful_courses_list])
+    helpful_courses_li = soup.select('div[id="majorCareerProfile_highSchoolCourseList"]')
+
+    if not helpful_courses_li == []:
+        for x in helpful_courses_li[0].select('li'):
+            helpful_courses_list.append(x.text)
+        helpful_courses = ','.join([x for x in helpful_courses_list])
+    else:
+        helpful_courses=''
+
 
     related_majors_li = soup.select('div[id="majorCareerProfile_relatedMajors"]')[0].select('li')
 
-    for x in related_majors_li:
-        related_majors_list.append(x.text)
 
-    related_majors =','.join([x for x in related_majors_list])
+    if not related_majors_li == []:
+        for x in related_majors_li[0].select('li'):
+            related_majors_list.append(x.text)
+        related_majors = ','.join([x for x in related_majors_list])
+    else:
+        related_majors=''
 
+ 
 
     return title,intro,helpful_courses,related_majors
