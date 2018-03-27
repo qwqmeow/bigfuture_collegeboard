@@ -9,6 +9,7 @@ import sqlite3
 import string
 import os
 import sys
+import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -19,23 +20,29 @@ main_url = 'https://bigfuture.collegeboard.org'
 
 
 def main(entrance):
+    start_time = time.time()
     
     print "entrance:{}".format(entrance)
 
     entrance_html = downloader.get_html_from_phantomjs(entrance)
     major_url_list = pageparser.get_major_categories(entrance_html)
-    i=0
-
-    for major_url in major_url_list:#1182
-        print 'spider to page {}/1182'.format(i)
+    
+    for id in xrange(144,len(major_url_list))
+        major_url = major_url_list[id]
+        print 'spider to page {}/{}\nurl:{}'.format(str(id),str(len(major_url_list)),major_url)
+        
         major_html = downloader.get_html_from_phantomjs(major_url)
-        title,intro,helpful_courses,related_majors = pageparser.parse_major(major_html)
-
+        try:
+            title,intro,helpful_courses,related_majors = pageparser.parse_major(major_html)
+        except Exception as e:
+            with open('fail_url.txt', 'a') as fd:
+                fd.write('{}\n{}'.format(e,major_url))
+            continue
 
 
         controler.write_data(title,intro,helpful_courses,related_majors)
+        print 'running time:{}s'.format(str(time.time()-start_time))
         # print 'title:{},code:{},helpful_courses:{},related_majors:{}'.format(title,intro,helpful_courses,related_majors)
-        i=i+1
 
 
 if __name__ == '__main__':
