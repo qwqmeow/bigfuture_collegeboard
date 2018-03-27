@@ -27,7 +27,7 @@ def main(entrance):
     entrance_html = downloader.get_html_from_phantomjs(entrance)
     major_url_list = pageparser.get_major_categories(entrance_html)
     
-    for id in xrange(144,len(major_url_list))
+    for id in xrange(144,len(major_url_list)):
         major_url = major_url_list[id]
         print 'spider to page {}/{}\nurl:{}'.format(str(id),str(len(major_url_list)),major_url)
         
