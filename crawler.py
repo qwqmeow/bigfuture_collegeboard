@@ -25,22 +25,23 @@ def main(entrance):
     print "entrance:{}".format(entrance)
 
     entrance_html = downloader.get_html_from_phantomjs(entrance)
-    major_url_list = pageparser.get_major_categories(entrance_html)
+    # major_url_list = pageparser.get_major_categories(entrance_html)
+    career_url_list = pageparser.get_career_categories(entrance_html)
     
-    for id in xrange(144,len(major_url_list)):
-        major_url = major_url_list[id]
-        print 'spider to page {}/{}\nurl:{}'.format(str(id),str(len(major_url_list)),major_url)
+    for id in xrange(0,len(career_url_list)):
+        career_url = career_url_list[id]
+        print 'spider to page {}/{}\nurl:{}'.format(str(id),str(len(career_url_list)),career_url)
         
-        major_html = downloader.get_html_from_phantomjs(major_url)
+        career_html = downloader.get_html_from_phantomjs(career_url)
         try:
-            title,intro,helpful_courses,related_majors = pageparser.parse_major(major_html)
+            title,text = pageparser.parse_career(career_html)
         except Exception as e:
             with open('fail_url.txt', 'a') as fd:
-                fd.write('{}\n{}'.format(e,major_url))
+                fd.write('{}\n{}'.format(e,career_url))
             continue
 
 
-        controler.write_data(title,intro,helpful_courses,related_majors)
+        controler.write_data(title,text)
         print 'running time:{}s'.format(str(time.time()-start_time))
         # print 'title:{},code:{},helpful_courses:{},related_majors:{}'.format(title,intro,helpful_courses,related_majors)
 

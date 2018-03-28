@@ -8,7 +8,7 @@ def _decode_utf8(str):
 
 
 
-def write_data(title,intro,helpful_courses,related_majors):
+def write_data(title,text):
 
     conn = pymysql.connect(host='127.0.0.1',port=3306,user='root',passwd='pass',db='edu',charset='utf8')
     cursor = conn.cursor()
@@ -18,7 +18,7 @@ def write_data(title,intro,helpful_courses,related_majors):
     #插入数据
     try:
 
-        cursor.execute('INSERT INTO edu_spider_en (title,intro,helpful,related)VALUES("{}","{}","{}","{}")'.format(title,intro,helpful_courses,related_majors))
+        cursor.execute('INSERT INTO edu_spider_en3 (title,high_school)VALUES("{}","{}")'.format(title,text))
     except Exception as e:
         print e
         pass

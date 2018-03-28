@@ -78,6 +78,20 @@ def get_major_categories(html):
 
     return major_url_list
 
+def get_career_categories(html):
+    
+    career_url_list = []
+    main_url = 'https://bigfuture.collegeboard.org'
+    soup = BeautifulSoup(html, "html.parser")
+    career_categories = soup.select('ul[class="treeview career-categories-treeview tree-root"]')
+    careers = career_categories[0].select('a[class="gwt-Anchor"]')
+
+    for x in careers:
+        career_url_list.append(main_url+x.get('href'))
+
+    return career_url_list
+    
+
     
 def parse_major(html):
     helpful_courses_list=[]
@@ -107,6 +121,13 @@ def parse_major(html):
     else:
         related_majors=''
 
- 
-
     return title,intro,helpful_courses,related_majors
+
+def parse_career(html):
+    
+    soup = BeautifulSoup(html, "html.parser")
+    title = soup.select('h1[id="majorCareerProfile_titleHeading"]')[0].text
+    text = soup.select('div[id="majorCareerProfile_highSchoolCourseList"]')[0].select('ul')[0].text
+
+    return title,text
+
